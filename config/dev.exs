@@ -2,14 +2,11 @@ import Config
 
 # Configure your database
 config :vgu, Vgu.Repo,
-  url: System.get_env("DATABASE_URL"),
   username: "postgres",
+  password: "password",
   database: "postgres",
-  ssl: true,
-  ssl_opts: [
-    verify: :verify_none
-  ],
-  pool_size: 25
+  ssl: false,
+  pool_size: 15
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
