@@ -24,11 +24,6 @@ defmodule Vgu.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Vgu.Supervisor]
     Supervisor.start_link(children, opts)
-    unless Mix.env == :prod do
-      IO.puts("~~~~~~~~~~~~~~~hi")
-      Dotenv.load
-      Mix.Task.run("loadconfig")
-    end
   end
 
   # Tell Phoenix to update the endpoint configuration
