@@ -1,10 +1,37 @@
-<.simple_form :let={f} for={@changeset} action={@action}>
+<.simple_form :let={f} for={@changeset} action={@action} class="max-w-3xl mx-auto">
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
-  <.input field={f[:title]} type="text" label="Title" />
-  <.input field={f[:content]} type="text" label="Content" />
-  <:actions>
-    <.button>Save Post</.button>
-  </:actions>
+  
+  <div class="space-y-8">
+    <.input field={f[:title]} type="text" label="Title" class="text-xl" />
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <label class="block text-sm font-semibold leading-6 text-zinc-800 mb-2">Content (Markdown Supported)</label>
+        <textarea 
+          id="post-content"
+          name="post[content]"
+          phx-hook="MarkdownEditor"
+          class="w-full min-h-[400px] p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-y"
+          placeholder="Write your post here... Markdown formatting supported"
+        ><%= Phoenix.HTML.Form.normalize_value("textarea", f[:content].value) %></textarea>
+      </div>
+      
+      <div class="prose max-w-full">
+        <h3 class="text-lg font-semibold mb-4">Preview</h3>
+        <div id="markdown-preview" class="border p-4 rounded-lg min-h-[400px]">
+          <%= if f[:content].value do %>
+            <%= Earmark.as_html!(f[:content].value) |> Phoenix.HTML.raw() %>
+          <% else %>
+            <p class="text-gray-400">Your formatted content will appear here...</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-end">
+      <.button class="px-8 py-3 text-lg">Save Post</.button>
+    </div>
+  </div>
 </.simple_form>

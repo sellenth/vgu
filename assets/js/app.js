@@ -21,6 +21,7 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import { marked } from "marked"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
@@ -41,4 +42,20 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+
+// Markdown Editor Hook
+Hooks.MarkdownEditor = {
+  mounted() {
+    const textarea = this.el
+    const preview = document.getElementById('markdown-preview')
+    
+    const updatePreview = () => {
+      preview.innerHTML = marked.parse(textarea.value) || 
+        '<p class="text-gray-400">Your formatted content will appear here...</p>'
+    }
+    
+    textarea.addEventListener('input', updatePreview)
+    updatePreview()
+  }
+}
 

@@ -1,21 +1,50 @@
 <.flash_group flash={@flash} />
 
-<div class="p-8">
-   <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">Embarking on a Journey</h1>
-<p class="text-gray-600 leading-relaxed mb-6">You are embarking on a journey. You can choose to see it like that. In fact, you have a lot of choice. Think about today…</p>
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="text-center mb-12">
+    <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome to My Digital Garden</h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+      A space for thoughts, ideas, and continuous learning. Explore my latest writings and join me on this journey of growth and discovery.
+    </p>
+  </div>
 
-<h2 class="text-2xl font-semibold text-gray-700 mb-2">Comfort and Productivity</h2>
-<p class="text-gray-600 leading-relaxed mb-4">Think about how you’re sitting. Are you comfortable? Sabai dee mai?</p>
+  <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Latest Post</h2>
+    <%= if @latest_post do %>
+      <div class="space-y-4">
+        <h3 class="text-2xl font-semibold text-gray-700">
+          <%= link @latest_post.title, to: ~p"/posts/#{@latest_post}", class: "hover:text-indigo-600 transition-colors" %>
+        </h3>
+        <p class="text-gray-600"><%= String.slice(@latest_post.content, 0..200) %>...</p>
+        <div class="pt-4">
+          <%= link "Read More →", to: ~p"/posts/#{@latest_post}", 
+                class: "text-indigo-600 font-medium hover:text-indigo-800 transition-colors" %>
+        </div>
+      </div>
+    <% else %>
+      <p class="text-gray-600">No posts yet. Check back soon!</p>
+    <% end %>
+  </div>
 
-<p class="text-gray-600 leading-relaxed mb-4">“Are you comfortable?” means Sabai dee mai.</p>
+  <div class="grid md:grid-cols-2 gap-8">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">About This Space</h2>
+      <p class="text-gray-600 leading-relaxed mb-4">
+        This is where I share my thoughts on technology, productivity, and personal growth. 
+        It's a living document of my learning journey.
+      </p>
+      <p class="text-gray-600 leading-relaxed">
+        Feel free to explore, and if something resonates with you, let me know!
+      </p>
+    </div>
 
-<p class="text-gray-600 leading-relaxed mb-4">Is there some way you could be more comfortable? What would that be worth to you? If it meant that you stayed focused on the computer for 30 more minutes per day, that could add up to a few hours per week.</p>
-
-<p class="text-gray-600 leading-relaxed mb-4">Is a few hours per week of focus time worth $10 to you? If so, maybe adding a few big books under your monitor to get it at eye level would help you. Or a donut pillow. Blue light glasses?</p>
-
-<p class="text-gray-600 leading-relaxed mb-4">Have you ever tried standing and using your computer? If you like that sort of thing or want to try it, I bought an adjustable standing desk earlier this year for $150 that has more desk space than most desks I’ve used in my life and works exactly as advertised. It isn’t the fanciest thing in the world but not having to crank the desk with my hand feels pretty high tech. There are many times when I just feel like being in a chair is constraining my creativity or productivity.</p>
-
-<h2 class="text-2xl font-semibold text-gray-700 mb-2">Today's Updates</h2>
-<p class="text-gray-600 leading-relaxed mb-4">Today I fixed the /links route. Added a fitting image for the basketball shootout image. Removed the fight night intro generator, pet converter, and lindy ai. Lindy was expensive for what I perceived it to be but it did have a solid experience to it. I see there is a free tier that will start tomorrow so I’ll re-evaluate it with that. Custom options are always something to consider.</p>
-<p class="text-gray-600 leading-relaxed mb-4">I also got phoenix running on this new vlog. Hosted it on fly.io. and learned why i might like a local postgres instance</p>
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Updates</h2>
+      <ul class="space-y-3 text-gray-600">
+        <li>• Improved site performance and responsiveness</li>
+        <li>• Added new writing tools for better content creation</li>
+        <li>• Enhanced the reading experience</li>
+      </ul>
+    </div>
+  </div>
 </div>
