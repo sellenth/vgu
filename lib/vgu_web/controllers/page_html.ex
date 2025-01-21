@@ -7,6 +7,7 @@ defmodule VguWeb.PageHTML do
   use VguWeb, :html
 
   import Phoenix.Component
+  import Phoenix.HTML.Link  # Add this to get link/2
   import VguWeb.CoreComponents
 
   embed_templates "page_html/*"
