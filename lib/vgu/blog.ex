@@ -21,6 +21,13 @@ defmodule Vgu.Blog do
     Repo.all(Post)
   end
 
+  def get_latest_post do
+    Post
+    |> order_by(desc: :inserted_at)
+    |> limit(1)
+    |> Repo.one()
+  end
+
   @doc """
   Gets a single post.
 
