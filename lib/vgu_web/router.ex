@@ -18,6 +18,8 @@ defmodule VguWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    
+    resources "/posts", PostController, only: [:index, :show, :new, :create, :edit, :update, :delete]
   end
 
   # Other scopes may use custom stacks.
