@@ -6,6 +6,7 @@ defmodule VguWeb.PageHTML do
   """
   use VguWeb, :html
 
+  import Phoenix.Component
   import VguWeb.CoreComponents
 
   embed_templates "page_html/*"
