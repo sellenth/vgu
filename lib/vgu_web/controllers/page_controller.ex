@@ -1,5 +1,6 @@
 defmodule VguWeb.PageController do
   use VguWeb, :controller
+  alias Vgu.Blog
 
   def home(conn, _params) do
     latest_post = Blog.get_latest_post()
