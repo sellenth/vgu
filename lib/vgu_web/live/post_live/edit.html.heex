@@ -1,0 +1,53 @@
+<.simple_form :let={f} for={@changeset} action={~p"/posts/#{@post}"} method="put" class="max-w-3xl mx-auto">
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+
+  <div class="space-y-8">
+    <.input field={f[:title]} type="text" label="Title" class="text-xl" />
+
+    <div>
+      <div>
+        <label class="block text-sm font-semibold leading-6 text-zinc-800 mb-2">Content (Markdown Supported)</label>
+        <textarea
+          id="post-content"
+          name="post[content]"
+          phx-change="update_preview"
+          phx-debounce="500"
+          class="w-full min-h-[400px] p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-y"
+          placeholder="Write your post here... Markdown formatting supported"
+        ><%= Phoenix.HTML.Form.normalize_value("textarea", @changeset.changes[:content] || @post.content) %></textarea>
+      </div>
+
+      <div class="mt-8 prose max-w-full">
+        <h3 class="text-lg font-semibold mb-4">Preview</h3>
+        <div id="markdown-preview" class="border p-4 rounded-lg min-h-[400px]">
+          <%= if @preview_html do %>
+            <%= Phoenix.HTML.raw(@preview_html) %>
+          <% else %>
+            <p class="text-gray-400">Your formatted content will appear here...</p>
+          <% end %>
+        <div phx-update="ignore" class="hidden" id="loading-indicator">
+        <p class="text-gray-400">Updating preview...</p>
+        </div>
+      </div>
+    </div>
+    <script>
+    let previewTimer;
+
+    document.getElementById("post-content").addEventListener("input", () => {
+        clearTimeout(previewTimer);
+        document.getElementById("loading-indicator").classList.remove("hidden");
+
+        previewTimer = setTimeout(() => {
+            document.getElementById("loading-indicator").classList.add("hidden");
+            }, 500); // Match the debounce time
+        });
+    </script>
+    </div>
+
+    <div class="flex justify-end">
+      <.button class="px-8 py-3 text-lg">Save Post</.button>
+    </div>
+  </div>
+</.simple_form>

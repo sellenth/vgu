@@ -19,7 +19,9 @@ defmodule VguWeb.Router do
 
     get "/", PageController, :home
     
-    resources "/posts", PostController, only: [:index, :show, :new, :create, :edit, :update, :delete]
+    resources "/posts", PostController, only: [:index, :show, :new, :create, :update, :delete]
+    live "/posts/:id/edit", PostLive.Edit
+
   end
 
   # Other scopes may use custom stacks.

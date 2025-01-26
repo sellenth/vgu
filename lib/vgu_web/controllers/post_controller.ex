@@ -31,12 +31,6 @@ defmodule VguWeb.PostController do
     render(conn, :show, post: post)
   end
 
-  def edit(conn, %{"id" => id}) do
-    post = Blog.get_post!(id)
-    changeset = Blog.change_post(post)
-    render(conn, :edit, post: post, changeset: changeset)
-  end
-
   def update(conn, %{"id" => id, "post" => post_params}) do
     post = Blog.get_post!(id)
 
