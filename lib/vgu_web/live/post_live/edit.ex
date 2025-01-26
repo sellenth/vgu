@@ -26,4 +26,18 @@ defmodule VguWeb.PostLive.Edit do
     # Update the preview in the socket
     {:noreply, assign(socket, :preview_html, preview_html)}
   end
+
+  @impl true
+  def handle_event("save_post", %{"post" => post_params}, socket) do
+  case Blog.update_post(socket.assigns.post, post_params) do
+    {:ok, post} ->
+    {:noreply,
+      socket
+        |> put_flash(:info, "Post saved successfully.")
+        |> redirect(to: ~p"/posts/#{post}")}
+
+    {:error, %Ecto.Changeset{} = changeset} ->
+    {:noreply, assign(socket, :changeset, changeset)}
+  end
+end
 end
